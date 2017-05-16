@@ -1,24 +1,27 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
+import {Usuario} from "../../pages/grilla/usuario";
+import {Http} from '@angular/http';
+import 'rxjs/Rx'; 
 
-/**
- * Generated class for the Login page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
-@IonicPage()
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html',
+  selector: 'page-contact',
+  templateUrl: 'login.html'
 })
+
+
 export class Login {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+listaBD = {};
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad Login');
+  constructor(public navCtrl: NavController,public http: Http) {
+    this.http.get("http://localhost/ws1/usuarios")
+  .map(res => res.json())
+  .subscribe((quote) =>{
+    this.listaBD = quote;
+    console.info(this.listaBD);
+  });
   }
 
 }
+
